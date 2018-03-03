@@ -23,8 +23,7 @@ import java.util.Set;
 public class Shopping extends AppCompatActivity {
 
     Button throwin,throwout,bt,done;
-    TextView nameT,priceT,offersT;
-    EditText Equantity;
+    TextView nameT,priceT,offersT,qtyT;
     int REQUEST_ENABLE_BT=1;
     BluetoothAdapter bAdapter;
     Set<BluetoothDevice> pairedDevices;
@@ -43,7 +42,7 @@ public class Shopping extends AppCompatActivity {
         nameT = (TextView) findViewById(R.id.nameres);
         priceT = (TextView)  findViewById(R.id.priceres);
         offersT = (TextView) findViewById(R.id.offersres);
-        Equantity = (EditText) findViewById(R.id.quantityres);
+        qtyT = (TextView) findViewById(R.id.quantityres);
 
         try
         {
@@ -52,8 +51,8 @@ public class Shopping extends AppCompatActivity {
             String name = bundle.getString("name");
             String price = bundle.getString("price");
             String offers = bundle.getString("offers");
-            String qty=Equantity.getText().toString();
-            quantity=quantity+Integer.parseInt(qty);
+            String qty=bundle.getString("qty");
+            qtyT.setText(qty);
             nameT.setText(name);
             priceT.setText(price);
             offersT.setText(offers);
@@ -67,6 +66,8 @@ public class Shopping extends AppCompatActivity {
             String name = bundle2.getString("name");
             String price = bundle2.getString("price");
             String offers = bundle2.getString("offers");
+            String qty = bundle2.getString("qty");
+            qtyT.setText(qty);
             nameT.setText(name);
             priceT.setText(price);
             offersT.setText(offers);
