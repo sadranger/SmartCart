@@ -148,7 +148,7 @@ public class BarcodeScanner extends AppCompatActivity implements ZXingScannerVie
             Bundle bundle2 = new Bundle();
             bundle2.putString("name","MacBook Pro");
             bundle2.putString("price","1,90,900");
-            bundle2.putString("offers","Student offer of 10%");
+            bundle2.putString("offers","Student offer of 20%");
             intent.putExtras(bundle2);
             startActivity(intent);
 

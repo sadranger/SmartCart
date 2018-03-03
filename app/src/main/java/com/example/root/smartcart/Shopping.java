@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,6 +24,7 @@ public class Shopping extends AppCompatActivity {
 
     Button throwin,throwout,bt,done;
     TextView nameT,priceT,offersT;
+    EditText Equantity;
     int REQUEST_ENABLE_BT=1;
     BluetoothAdapter bAdapter;
     Set<BluetoothDevice> pairedDevices;
@@ -41,16 +43,21 @@ public class Shopping extends AppCompatActivity {
         nameT = (TextView) findViewById(R.id.nameres);
         priceT = (TextView)  findViewById(R.id.priceres);
         offersT = (TextView) findViewById(R.id.offersres);
+        Equantity = (EditText) findViewById(R.id.quantityres);
 
         try
         {
+            int quantity=0;
             Bundle bundle = getIntent().getExtras();
             String name = bundle.getString("name");
             String price = bundle.getString("price");
             String offers = bundle.getString("offers");
+            String qty=Equantity.getText().toString();
+            quantity=quantity+Integer.parseInt(qty);
             nameT.setText(name);
             priceT.setText(price);
             offersT.setText(offers);
+
         }
         catch(Exception e ){
             Log.e("error is: ",e.getMessage());
@@ -120,7 +127,12 @@ public class Shopping extends AppCompatActivity {
                 builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        Bundle bundle =new Bundle();
+                        bundle.putString("quantity","2");
+                        bundle.putString("price","94,990");
+
                         Intent intent = new Intent (Shopping.this,Bill.class);
+                        intent.putExtras(bundle);
                         startActivity(intent);
                     }
                 });
