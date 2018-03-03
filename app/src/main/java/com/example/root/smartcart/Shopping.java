@@ -60,9 +60,12 @@ public class Shopping extends AppCompatActivity {
             String name = bundle2.getString("name");
             String price = bundle2.getString("price");
             String offers = bundle2.getString("offers");
+            nameT.setText(name);
+            priceT.setText(price);
+            offersT.setText(offers);
         }
         catch (Exception e){
-            Toast.makeText(this, "Failed to get details!!", Toast.LENGTH_SHORT).show();
+          //  Toast.makeText(this, "Failed to get details!!", Toast.LENGTH_SHORT).show();
             Log.e("Error is:",e.getMessage());
         }
 
