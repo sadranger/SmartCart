@@ -28,6 +28,7 @@ public class Shopping extends AppCompatActivity {
     BluetoothAdapter bAdapter;
     Set<BluetoothDevice> pairedDevices;
     String plist[];
+    public int measure1,measure2;
 
 
     @Override
@@ -52,6 +53,7 @@ public class Shopping extends AppCompatActivity {
             String price = bundle.getString("price");
             String offers = bundle.getString("offers");
             String qty=bundle.getString("qty");
+            measure1 = bundle.getInt("measure");
             qtyT.setText(qty);
             nameT.setText(name);
             priceT.setText(price);
@@ -67,6 +69,7 @@ public class Shopping extends AppCompatActivity {
             String price = bundle2.getString("price");
             String offers = bundle2.getString("offers");
             String qty = bundle2.getString("qty");
+            measure2 = bundle2.getInt("measure");
             qtyT.setText(qty);
             nameT.setText(name);
             priceT.setText(price);
@@ -81,6 +84,7 @@ public class Shopping extends AppCompatActivity {
         throwin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Intent intent = new Intent(Shopping.this, BarcodeScanner.class);
                 startActivity(intent);
             }
@@ -88,8 +92,16 @@ public class Shopping extends AppCompatActivity {
         throwout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Shopping.this, BarcodeScanner.class);
-                startActivity(intent);
+                if ( measure1<= 0) {
+                    Toast.makeText(Shopping.this, "There are no items in your cart!!", Toast.LENGTH_SHORT).show();
+                } else {
+                   Bundle bundle = new Bundle();
+                   bundle.putInt("measure",measure1);
+                    Intent intent = new Intent(Shopping.this, BarcodeScannerThrowOut.class);
+                    intent.putExtras(bundle);
+
+                    startActivity(intent);
+                }
             }
         });
 

@@ -18,15 +18,15 @@ import static android.Manifest.permission.CAMERA;
 import static android.hardware.Camera.CameraInfo.CAMERA_FACING_BACK;
 
 /**
- * Created by root on 2/3/18.
+ * Created by root on 3/3/18.
  */
 
-public class BarcodeScanner extends AppCompatActivity implements ZXingScannerView.ResultHandler {
+public class BarcodeScannerThrowOut extends AppCompatActivity implements ZXingScannerView.ResultHandler{
 
     private static final int REQUEST_CAMERA = 1;
     private ZXingScannerView scannerView;
     private static int camId = CAMERA_FACING_BACK;
-    public int measure1=0,measure2=0;
+    int measure1,measure2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,7 +116,7 @@ public class BarcodeScanner extends AppCompatActivity implements ZXingScannerVie
     }
 
     private void showMessageOKCancel(String message, DialogInterface.OnClickListener okListener) {
-        new android.support.v7.app.AlertDialog.Builder(BarcodeScanner.this)
+        new android.support.v7.app.AlertDialog.Builder(BarcodeScannerThrowOut.this)
                 .setMessage(message)
                 .setPositiveButton("OK", okListener)
                 .setNegativeButton("Cancel", null)
@@ -132,39 +132,37 @@ public class BarcodeScanner extends AppCompatActivity implements ZXingScannerVie
         src2="654321";
 
         if(src1.equals(res)) {
-            measure1+=1;
 
-            Intent intent = new Intent(BarcodeScanner.this,Shopping.class);
+            Bundle bundle2= getIntent().getExtras();
+            measure1 = bundle2.getInt("measure1");
+            measure1-=1;
+            Toast.makeText(this, "Removed iPhone X", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(BarcodeScannerThrowOut.this,Shopping.class);
             Bundle bundle = new Bundle();
             bundle.putString("name","iPhone X");
             bundle.putString("price","94,490");
-            bundle.putString("qty","1");
+            bundle.putString("qty","2");
             bundle.putString("offers","10% discount on Axis Credit cards");
-            bundle.putInt("measure",measure1);
+            bundle.putInt("measure1",measure1);
             intent.putExtras(bundle);
             startActivity(intent);
 
 
         }
         else if(src2.equals(res)){
-            measure2+=1;
-
-            Intent intent = new Intent(BarcodeScanner.this,Shopping.class);
-            //Intent intent2 = new Intent(BarcodeScanner.this,BarcodeScannerThrowOut.class);
+            Toast.makeText(this, "Removed MacBook Pro", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(BarcodeScannerThrowOut.this,Shopping.class);
             Bundle bundle2 = new Bundle();
             bundle2.putString("name","MacBook Pro");
             bundle2.putString("price","1,90,900");
             bundle2.putString("qty","1");
             bundle2.putString("offers","Student offer of 20%");
-            bundle2.putInt("measure",measure2);
-           // intent.putExtras(bundle2);
-           // intent2.putExtras(bundle2);
-           // startActivity(intent2);
+            intent.putExtras(bundle2);
             startActivity(intent);
 
         }
         else{
-            Intent intent = new Intent(BarcodeScanner.this,Shopping.class);
+            Intent intent = new Intent(BarcodeScannerThrowOut.this,Shopping.class);
             startActivity(intent);
             Toast.makeText(this, "Item out of stock. Inconvenience caused is deeply regretted!!", Toast.LENGTH_SHORT).show();
             Toast.makeText(this, "Failed to get details!!", Toast.LENGTH_SHORT).show();
@@ -194,4 +192,3 @@ public class BarcodeScanner extends AppCompatActivity implements ZXingScannerVie
         alert1.show();*/
     }
 }
-
