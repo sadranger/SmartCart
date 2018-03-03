@@ -23,7 +23,7 @@ import java.util.Set;
 public class Shopping extends AppCompatActivity {
 
     Button throwin,throwout,bt,done;
-    TextView nameT,priceT,offersT,qtyT;
+    TextView nameT,priceT,offersT,qtyT,test;
     int REQUEST_ENABLE_BT=1;
     BluetoothAdapter bAdapter;
     Set<BluetoothDevice> pairedDevices;
@@ -44,7 +44,7 @@ public class Shopping extends AppCompatActivity {
         priceT = (TextView)  findViewById(R.id.priceres);
         offersT = (TextView) findViewById(R.id.offersres);
         qtyT = (TextView) findViewById(R.id.quantityres);
-       //    test = (TextView) findViewById(R.id.test);
+        //test = (TextView) findViewById(R.id.test);
 
         try
         {
@@ -53,7 +53,7 @@ public class Shopping extends AppCompatActivity {
             String price = bundle.getString("price");
             String offers = bundle.getString("offers");
             qty=bundle.getInt("qty");
-            measure1 = bundle.getInt("measure");
+            this.measure1 = qty;
             qtyT.setText(Integer.toString(qty));
             nameT.setText(name);
             priceT.setText(price);
@@ -77,7 +77,6 @@ public class Shopping extends AppCompatActivity {
             Log.e("Error is:",e.getMessage());
         }
 
-
         throwin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -93,7 +92,8 @@ public class Shopping extends AppCompatActivity {
                 Intent intent2 = new Intent(Shopping.this, BarcodeScannerThrowOut.class);
                     Bundle bundle = new Bundle();
                     bundle.putInt("measure",measure1);
-                  //  bundle.putInt("measure",measure2);
+                    /*bundle.putInt("measure",measure2);*/
+                test.setText(Integer.toString(measure1));
 
                  intent2.putExtras(bundle);
 

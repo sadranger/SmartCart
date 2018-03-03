@@ -26,7 +26,7 @@ public class BarcodeScannerThrowOut extends AppCompatActivity implements ZXingSc
     private static final int REQUEST_CAMERA = 1;
     private ZXingScannerView scannerView;
     private static int camId = CAMERA_FACING_BACK;
-    public static int measure1=0,measure2=0;
+    public static int measure1,measure2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -131,11 +131,13 @@ public class BarcodeScannerThrowOut extends AppCompatActivity implements ZXingSc
         src1="123456";
         src2="654321";
 
-        if(src1.equals(res)) {
 
+
+        if(src1.equals(res)) {
             Bundle bundle= getIntent().getExtras();
             measure1 = bundle.getInt("measure");
-            if(measure1<=0){
+
+            if(measure1==0){
                 Toast.makeText(this, "There are no items in your cart...", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(BarcodeScannerThrowOut.this,Shopping.class);
                 startActivity(intent);
