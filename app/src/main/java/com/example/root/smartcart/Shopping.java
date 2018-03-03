@@ -23,7 +23,7 @@ import java.util.Set;
 public class Shopping extends AppCompatActivity {
 
     Button throwin,throwout,bt,done;
-    TextView nameT,priceT,offersT,qtyT,test;
+    TextView nameT,priceT,offersT,qtyT;
     int REQUEST_ENABLE_BT=1;
     BluetoothAdapter bAdapter;
     Set<BluetoothDevice> pairedDevices;
@@ -44,7 +44,7 @@ public class Shopping extends AppCompatActivity {
         priceT = (TextView)  findViewById(R.id.priceres);
         offersT = (TextView) findViewById(R.id.offersres);
         qtyT = (TextView) findViewById(R.id.quantityres);
-        test = (TextView) findViewById(R.id.test);
+       //    test = (TextView) findViewById(R.id.test);
 
         try
         {
@@ -53,28 +53,24 @@ public class Shopping extends AppCompatActivity {
             String price = bundle.getString("price");
             String offers = bundle.getString("offers");
             qty=bundle.getInt("qty");
-           // measure1 = bundle.getInt("measure");
+            measure1 = bundle.getInt("measure");
             qtyT.setText(Integer.toString(qty));
             nameT.setText(name);
             priceT.setText(price);
             offersT.setText(offers);
             //test.setText(Integer.toString(measure1));
 
-        }
-        catch(Exception e ){
-            Log.e("error is: ",e.getMessage());
-        }
-        try {
-            Bundle bundle2 = getIntent().getExtras();
-            String name = bundle2.getString("name");
-            String price = bundle2.getString("price");
-            String offers = bundle2.getString("offers");
+
+            /*Bundle bundle2 = getIntent().getExtras();
+            String name2 = bundle2.getString("name");
+            String price2 = bundle2.getString("price");
+            String offers2 = bundle2.getString("offers");
             //qty = bundle2.getString("qty");
             measure2 = bundle2.getInt("measure");
             qtyT.setText(qty);
-            nameT.setText(name);
-            priceT.setText(price);
-            offersT.setText(offers);
+            nameT.setText(name2);
+            priceT.setText(price2);
+            offersT.setText(offers2);*/
         }
         catch (Exception e){
           //  Toast.makeText(this, "Failed to get details!!", Toast.LENGTH_SHORT).show();
@@ -93,18 +89,20 @@ public class Shopping extends AppCompatActivity {
         throwout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if ( measure1<= 0) {
-                    Toast.makeText(Shopping.this, "There are no items in your cart!!", Toast.LENGTH_SHORT).show();
-                } else {
-                   Bundle bundle = new Bundle();
-                   bundle.putInt("measure",measure1);
-                    Intent intent = new Intent(Shopping.this, BarcodeScannerThrowOut.class);
-                    intent.putExtras(bundle);
 
-                    startActivity(intent);
+                Intent intent2 = new Intent(Shopping.this, BarcodeScannerThrowOut.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("measure",measure1);
+                  //  bundle.putInt("measure",measure2);
+
+                 intent2.putExtras(bundle);
+
+
+                    startActivity(intent2);
+
                 }
-            }
-        });
+
+          });
 
         bt.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -35,6 +35,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".BarcodeScanner" />
+        <activity android:name=".BarcodeScannerThrowOut"/>
         <activity android:name=".Bill" />
     </application>
 
