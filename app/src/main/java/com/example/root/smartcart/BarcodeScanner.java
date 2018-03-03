@@ -26,7 +26,7 @@ public class BarcodeScanner extends AppCompatActivity implements ZXingScannerVie
     private static final int REQUEST_CAMERA = 1;
     private ZXingScannerView scannerView;
     private static int camId = CAMERA_FACING_BACK;
-    public int measure1=0,measure2=0;
+    public static int measure1=0,measure2=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -138,9 +138,9 @@ public class BarcodeScanner extends AppCompatActivity implements ZXingScannerVie
             Bundle bundle = new Bundle();
             bundle.putString("name","iPhone X");
             bundle.putString("price","94,490");
-            bundle.putString("qty","1");
+            bundle.putInt("qty",measure1);
             bundle.putString("offers","10% discount on Axis Credit cards");
-            bundle.putInt("measure",measure1);
+           // bundle.putInt("measure",measure1);
             intent.putExtras(bundle);
             startActivity(intent);
 

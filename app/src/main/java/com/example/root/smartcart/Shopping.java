@@ -23,12 +23,12 @@ import java.util.Set;
 public class Shopping extends AppCompatActivity {
 
     Button throwin,throwout,bt,done;
-    TextView nameT,priceT,offersT,qtyT;
+    TextView nameT,priceT,offersT,qtyT,test;
     int REQUEST_ENABLE_BT=1;
     BluetoothAdapter bAdapter;
     Set<BluetoothDevice> pairedDevices;
     String plist[];
-    public int measure1,measure2;
+    public int measure1,measure2,qty;
 
 
     @Override
@@ -44,20 +44,21 @@ public class Shopping extends AppCompatActivity {
         priceT = (TextView)  findViewById(R.id.priceres);
         offersT = (TextView) findViewById(R.id.offersres);
         qtyT = (TextView) findViewById(R.id.quantityres);
+        test = (TextView) findViewById(R.id.test);
 
         try
         {
-            int quantity=0;
             Bundle bundle = getIntent().getExtras();
             String name = bundle.getString("name");
             String price = bundle.getString("price");
             String offers = bundle.getString("offers");
-            String qty=bundle.getString("qty");
-            measure1 = bundle.getInt("measure");
-            qtyT.setText(qty);
+            qty=bundle.getInt("qty");
+           // measure1 = bundle.getInt("measure");
+            qtyT.setText(Integer.toString(qty));
             nameT.setText(name);
             priceT.setText(price);
             offersT.setText(offers);
+            //test.setText(Integer.toString(measure1));
 
         }
         catch(Exception e ){
@@ -68,7 +69,7 @@ public class Shopping extends AppCompatActivity {
             String name = bundle2.getString("name");
             String price = bundle2.getString("price");
             String offers = bundle2.getString("offers");
-            String qty = bundle2.getString("qty");
+            //qty = bundle2.getString("qty");
             measure2 = bundle2.getInt("measure");
             qtyT.setText(qty);
             nameT.setText(name);
