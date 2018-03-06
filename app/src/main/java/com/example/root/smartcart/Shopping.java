@@ -28,7 +28,7 @@ public class Shopping extends AppCompatActivity {
     BluetoothAdapter bAdapter;
     Set<BluetoothDevice> pairedDevices;
     String plist[];
-    public int measure1,measure2,qty;
+    public int measure1,measure2,qty,qty2;
 
 
     @Override
@@ -53,11 +53,24 @@ public class Shopping extends AppCompatActivity {
             String price = bundle.getString("price");
             String offers = bundle.getString("offers");
             qty=bundle.getInt("qty");
+            qty2=bundle.getInt("qty2");
+            int key = bundle.getInt("key");
             this.measure1 = qty;
-            qtyT.setText(Integer.toString(qty));
-            nameT.setText(name);
-            priceT.setText(price);
-            offersT.setText(offers);
+            this.measure2 = qty2;
+            if(key==1){
+                qtyT.setText(Integer.toString(qty));
+                nameT.setText(name);
+                priceT.setText(price);
+                offersT.setText(offers);
+
+            }
+            else{
+
+                qtyT.setText(Integer.toString(qty2));
+                nameT.setText(name);
+                priceT.setText(price);
+                offersT.setText(offers);
+            }
             //test.setText(Integer.toString(measure1));
 
 
@@ -91,9 +104,10 @@ public class Shopping extends AppCompatActivity {
 
                 Intent intent2 = new Intent(Shopping.this, BarcodeScannerThrowOut.class);
                     Bundle bundle = new Bundle();
-                    bundle.putInt("measure",measure1);
-                    /*bundle.putInt("measure",measure2);*/
-                test.setText(Integer.toString(measure1));
+                    bundle.putInt("measure1",measure1);
+                    bundle.putInt("measure2",measure2);
+
+
 
                  intent2.putExtras(bundle);
 
@@ -140,8 +154,10 @@ public class Shopping extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         Bundle bundle =new Bundle();
-                        bundle.putString("quantity","2");
-                        bundle.putString("price","94,990");
+                        bundle.putInt("quantity",measure1);
+                        bundle.putString("price","45");
+                        bundle.putString("price2","20");
+                        bundle.putInt("quantity",measure2);
 
                         Intent intent = new Intent (Shopping.this,Bill.class);
                         intent.putExtras(bundle);

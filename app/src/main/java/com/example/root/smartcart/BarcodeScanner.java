@@ -136,10 +136,11 @@ public class BarcodeScanner extends AppCompatActivity implements ZXingScannerVie
 
             Intent intent = new Intent(BarcodeScanner.this,Shopping.class);
             Bundle bundle = new Bundle();
-            bundle.putString("name","iPhone X");
-            bundle.putString("price","94,490");
+            bundle.putString("name","Muffins");
+            bundle.putString("price","45");
             bundle.putInt("qty",measure1);
-            bundle.putString("offers","10% discount on Axis Credit cards");
+            bundle.putString("offers"," ");
+            bundle.putInt("key",1);
            // bundle.putInt("measure",measure1);
             intent.putExtras(bundle);
             startActivity(intent);
@@ -152,11 +153,12 @@ public class BarcodeScanner extends AppCompatActivity implements ZXingScannerVie
             Intent intent = new Intent(BarcodeScanner.this,Shopping.class);
             //Intent intent2 = new Intent(BarcodeScanner.this,BarcodeScannerThrowOut.class);
             Bundle bundle = new Bundle();
-            bundle.putString("name","MacBook Pro");
-            bundle.putString("price","1,90,900");
-            bundle.putInt("qty",measure2);
-            bundle.putString("offers","Student offer of 20%");
-            bundle.putInt("measure",measure2);
+            bundle.putString("name","Chocolate");
+            bundle.putString("price","20");
+            bundle.putInt("qty2",measure2);
+            bundle.putString("offers"," ");
+            bundle.putInt("key",2);
+            //bundle.putInt("measure",measure2);
             intent.putExtras(bundle);
            // intent2.putExtras(bundle2);
            // startActivity(intent2);

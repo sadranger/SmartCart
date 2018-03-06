@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.google.zxing.Result;
@@ -47,6 +48,16 @@ public class BarcodeScannerThrowOut extends AppCompatActivity implements ZXingSc
                 requestPermission();
             }
         }
+
+        try{
+            Bundle bundle= getIntent().getExtras();
+            this.measure1 = bundle.getInt("measure1");
+            this.measure2 = bundle.getInt("measure2");
+        }
+        catch(Exception e){
+            Log.e("Error is:",e.getMessage());
+        }
+
     }
 
     private boolean checkPermission()
@@ -124,6 +135,7 @@ public class BarcodeScannerThrowOut extends AppCompatActivity implements ZXingSc
                 .show();
     }
 
+
     @Override
     public void handleResult(Result result) {
         String src1,src2,res;
@@ -134,8 +146,7 @@ public class BarcodeScannerThrowOut extends AppCompatActivity implements ZXingSc
 
 
         if(src1.equals(res)) {
-            Bundle bundle= getIntent().getExtras();
-            measure1 = bundle.getInt("measure");
+
 
             if(measure1==0){
                 Toast.makeText(this, "There are no items in your cart...", Toast.LENGTH_SHORT).show();
@@ -144,13 +155,13 @@ public class BarcodeScannerThrowOut extends AppCompatActivity implements ZXingSc
             }
             else {
                 measure1 -= 1;
-                Toast.makeText(this, "Removed iPhone X", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Removed item", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(BarcodeScannerThrowOut.this, Shopping.class);
                 Bundle bundle2 = new Bundle();
-                bundle2.putString("name", "iPhone X");
-                bundle2.putString("price", "94,490");
+                bundle2.putString("name", "Muffins");
+                bundle2.putString("price", "45");
                 bundle2.putInt("qty", measure1);
-                bundle2.putString("offers", "10% discount on Axis Credit cards");
+                bundle2.putString("offers", " ");
                 //bundle.putInt("measure1",measure1);
                 intent.putExtras(bundle2);
                 startActivity(intent);
@@ -160,8 +171,8 @@ public class BarcodeScannerThrowOut extends AppCompatActivity implements ZXingSc
 
         }
         else if(src2.equals(res)){
-            Bundle bundle= getIntent().getExtras();
-            measure2 =bundle.getInt("measure") ;
+            /*Bundle bundle= getIntent().getExtras();
+            measure2 =bundle.getInt("measure") ;*/
             if(measure2<=0) {
                 Toast.makeText(this, "There are no items in your cart...", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(BarcodeScannerThrowOut.this,Shopping.class);
@@ -170,13 +181,13 @@ public class BarcodeScannerThrowOut extends AppCompatActivity implements ZXingSc
             }
             else {
                 measure2 -= 1;
-                Toast.makeText(this, "Removed MacBook Pro", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Removed item", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(BarcodeScannerThrowOut.this, Shopping.class);
                 Bundle bundle2 = new Bundle();
-                bundle2.putString("name", "MacBook Pro");
-                bundle2.putString("price", "1,90,900");
+                bundle2.putString("name", "Chocolate");
+                bundle2.putString("price", "20");
                 bundle2.putInt("qty", measure2);
-                bundle2.putString("offers", "Student offer of 20%");
+                bundle2.putString("offers", "null");
                 intent.putExtras(bundle2);
                 startActivity(intent);
             }
