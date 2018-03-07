@@ -162,6 +162,7 @@ public class BarcodeScannerThrowOut extends AppCompatActivity implements ZXingSc
                 bundle2.putString("price", "45");
                 bundle2.putInt("qty", measure1);
                 bundle2.putString("offers", " ");
+                bundle2.putInt("key",1);
                 //bundle.putInt("measure1",measure1);
                 intent.putExtras(bundle2);
                 startActivity(intent);
@@ -187,6 +188,7 @@ public class BarcodeScannerThrowOut extends AppCompatActivity implements ZXingSc
                 bundle2.putString("name", "Chocolate");
                 bundle2.putString("price", "20");
                 bundle2.putInt("qty", measure2);
+                bundle2.putInt("key",2);
                 bundle2.putString("offers", "null");
                 intent.putExtras(bundle2);
                 startActivity(intent);
@@ -200,28 +202,7 @@ public class BarcodeScannerThrowOut extends AppCompatActivity implements ZXingSc
             Toast.makeText(this, "Failed to get details!!", Toast.LENGTH_SHORT).show();
         }
 
-        /*final String myResult = result.getText();
-        Log.d("QRCodeScanner", result.getText());
-        Log.d("QRCodeScanner", result.getBarcodeFormat().toString());
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Scan Result");
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                scannerView.resumeCameraPreview(QrScanner.this);
-            }
-        });
-        builder.setNeutralButton("Visit", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(myResult));
-                startActivity(browserIntent);
-            }
-        });
-        builder.setMessage(result.getText());
-        AlertDialog alert1 = builder.create();
-        alert1.show();*/
     }
 }
 
