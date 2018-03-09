@@ -33,8 +33,8 @@ public class CheckOut extends AppCompatActivity {
         int qty2 = checking.getInt("measure2");
 
 
-        Qty1.setText(Integer.toString(qty1));
-        Qty2.setText(Integer.toString(qty2));
+        Qty1.setText(Integer.toString(Shopping.MuffQty));
+        Qty2.setText(Integer.toString(Shopping.ChocoQty));
         bDisable.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

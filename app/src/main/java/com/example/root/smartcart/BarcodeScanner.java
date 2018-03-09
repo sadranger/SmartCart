@@ -26,7 +26,8 @@ public class BarcodeScanner extends AppCompatActivity implements ZXingScannerVie
     private static final int REQUEST_CAMERA = 1;
     private ZXingScannerView scannerView;
     private static int camId = CAMERA_FACING_BACK;
-    public static int measure1=0,measure2=0;
+    public static int MuffQty=0,ChocoQty=0;
+    public final int MuffKey=1,ChocoKey=2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -132,44 +133,33 @@ public class BarcodeScanner extends AppCompatActivity implements ZXingScannerVie
         src2="654321";
 
         if(src1.equals(res)) {
-            measure1+=1;
+            Shopping.MuffQty = Shopping.MuffQty+1;
+            MuffQty+=1;
 
-            Intent intent = new Intent(BarcodeScanner.this,Shopping.class);
-            Bundle bundle = new Bundle();
-            bundle.putString("name","Muffins");
-            bundle.putString("price","45");
-            bundle.putInt("qty",measure1);
-            bundle.putString("offers"," ");
-            bundle.putInt("key",1);
-           // bundle.putInt("measure",measure1);
-            intent.putExtras(bundle);
-            startActivity(intent);
+            Intent GO_TO_SHOPPING = new Intent();
+            GO_TO_SHOPPING.putExtra("MuffQty",MuffQty);
+            GO_TO_SHOPPING.putExtra("key",MuffKey);
+            setResult(RESULT_OK,GO_TO_SHOPPING);
+            finish();
 
 
         }
         else if(src2.equals(res)){
-            measure2+=1;
+            Shopping.ChocoQty=Shopping.ChocoQty+1;
+            ChocoQty+=1;
 
-            Intent intent = new Intent(BarcodeScanner.this,Shopping.class);
-            //Intent intent2 = new Intent(BarcodeScanner.this,BarcodeScannerThrowOut.class);
-            Bundle bundle = new Bundle();
-            bundle.putString("name","Chocolate");
-            bundle.putString("price","20");
-            bundle.putInt("qty2",measure2);
-            bundle.putString("offers"," ");
-            bundle.putInt("key",2);
-            //bundle.putInt("measure",measure2);
-            intent.putExtras(bundle);
-           // intent2.putExtras(bundle2);
-           // startActivity(intent2);
-            startActivity(intent);
+            Intent GO_TO_SHOPPING = new Intent();
+            GO_TO_SHOPPING.putExtra("ChocoQty",ChocoQty);
+            GO_TO_SHOPPING.putExtra("key",ChocoKey);
+            setResult(RESULT_OK,GO_TO_SHOPPING);
+            finish();
 
         }
         else{
-            Intent intent = new Intent(BarcodeScanner.this,Shopping.class);
-            startActivity(intent);
+            Intent GO_TO_SHOPPING = new Intent();
             Toast.makeText(this, "Item out of stock. Inconvenience caused is deeply regretted!!", Toast.LENGTH_SHORT).show();
             Toast.makeText(this, "Failed to get details!!", Toast.LENGTH_SHORT).show();
+            setResult(RESULT_OK,GO_TO_SHOPPING);
         }
 
 

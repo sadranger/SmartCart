@@ -19,6 +19,7 @@ import org.w3c.dom.Text;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class Shopping extends AppCompatActivity {
 
@@ -27,8 +28,8 @@ public class Shopping extends AppCompatActivity {
     BluetoothAdapter bAdapter;
     Set<BluetoothDevice> pairedDevices;
     String plist[];
-    public static int measure1,measure2,qty,qty2;
-    public final int REQ_CODE_FOR_THROW_IN=2,REQ_CODE_FOR_THROW_OUT=3,REQUEST_ENABLE_BT=1;
+    public static int MuffQty,ChocoQty;
+    public final int REQ_CODE_FOR_THROW_IN=2,REQ_CODE_FOR_THROW_OUT=3,REQUEST_ENABLE_BT=1,REQ_CODE_FOR_BILL=4;
 
 
     @Override
@@ -45,54 +46,23 @@ public class Shopping extends AppCompatActivity {
         offersT = (TextView) findViewById(R.id.offersres);
         qtyT = (TextView) findViewById(R.id.quantityres);
 
-        try
-        {
-            Bundle bundle = getIntent().getExtras();
-            String name = bundle.getString("name");
-            String price = bundle.getString("price");
-            String offers = bundle.getString("offers");
-            qty=bundle.getInt("qty");
-            qty2=bundle.getInt("qty2");
-            int key = bundle.getInt("key");
-            this.measure1 = qty;
-            this.measure2 = qty2;
-            if(key==1){
-                qtyT.setText(Integer.toString(measure1));
-                nameT.setText(name);
-                priceT.setText(price);
-                offersT.setText(offers);
-
-            }
-            else{
-
-                qtyT.setText(Integer.toString(measure2));
-                nameT.setText(name);
-                priceT.setText(price);
-                offersT.setText(offers);
-            }
-        }
-        catch (Exception e){
-            Log.e("Error is:",e.getMessage());
-        }
 
         throwin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(Shopping.this, BarcodeScanner.class);
-                startActivityForResult(intent,REQ_CODE_FOR_THROW_IN);
+                Intent GO_TO_SCANNER = new Intent(getApplicationContext(), BarcodeScanner.class);
+                startActivityForResult(GO_TO_SCANNER,REQ_CODE_FOR_THROW_IN);
             }
         });
         throwout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                Intent intent2 = new Intent(Shopping.this, BarcodeScannerThrowOut.class);
-                    Bundle bundle = new Bundle();
-                    bundle.putInt("measure1",measure1);
-                    bundle.putInt("measure2",measure2);
-                    intent2.putExtras(bundle);
-                    startActivityForResult(intent2,REQ_CODE_FOR_THROW_OUT);
+                Intent GO_TO_SCANNER = new Intent(getApplicationContext(), BarcodeScannerThrowOut.class);
+                GO_TO_SCANNER.putExtra("MuffQty",MuffQty);
+                GO_TO_SCANNER.putExtra("ChocoQty", ChocoQty);
+                startActivityForResult(GO_TO_SCANNER,REQ_CODE_FOR_THROW_OUT);
 
                 }
 
@@ -133,15 +103,10 @@ public class Shopping extends AppCompatActivity {
                 builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Bundle bundle =new Bundle();
-                        bundle.putInt("quantity",measure1);
-                        bundle.putString("price","45");
-                        bundle.putString("price2","20");
-                        bundle.putInt("quantity",measure2);
-
-                        Intent intent = new Intent (Shopping.this,Bill.class);
-                        intent.putExtras(bundle);
-                        startActivity(intent);
+                        Intent GO_TO_BILL= new Intent (getApplicationContext(),Bill.class);
+                        GO_TO_BILL.putExtra("MuffQty",MuffQty);
+                        GO_TO_BILL.putExtra("ChocoQty",ChocoQty);
+                        startActivity(GO_TO_BILL);
                     }
                 });
                 builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -185,6 +150,63 @@ public class Shopping extends AppCompatActivity {
                 startActivity(pass);
 
             }
+        }
+        else if(requestcode==REQ_CODE_FOR_THROW_IN){
+
+            if(resultcode==RESULT_OK){
+                int PassedKeyForThrowIn =data.getIntExtra("key",0);
+                if(PassedKeyForThrowIn==1){
+                    //MuffQty=data.getIntExtra("MuffQty",0);
+                    if(MuffQty>0){
+                        nameT.setText("Muffins");
+                        priceT.setText("45");
+                        qtyT.setText(Integer.toString(MuffQty));
+                        offersT.setText(" ");
+                    }
+
+                }
+                if(PassedKeyForThrowIn==2){
+                    //ChocoQty = data.getIntExtra("ChocoQty",0);
+                    if(ChocoQty>0){
+                        nameT.setText("Chocolates");
+                        priceT.setText("20");
+                        qtyT.setText(Integer.toString(ChocoQty));
+                        offersT.setText(" ");
+                    }
+
+                }
+                if(PassedKeyForThrowIn==0){
+                    Toast.makeText(this, "Failed to get details..", Toast.LENGTH_SHORT).show();
+                }
+
+
+            }
+
+
+        }
+        else if(requestcode==REQ_CODE_FOR_THROW_OUT){
+            if(resultcode==RESULT_OK){
+                int PassedKeyForThrowOut=data.getIntExtra("key",0);
+                if(PassedKeyForThrowOut==1){
+                    //MuffQty=data.getIntExtra("MuffQty",0);
+                    nameT.setText("Muffins");
+                    priceT.setText("45");
+                    offersT.setText(" " );
+                    qtyT.setText(Integer.toString(MuffQty));
+
+                }
+                if(PassedKeyForThrowOut==2){
+                    //ChocoQty=data.getIntExtra("ChocoQty",0);
+                    nameT.setText("Chocolates");
+                    priceT.setText("20");
+                    offersT.setText(" " );
+                    qtyT.setText(Integer.toString(ChocoQty));
+
+                }
+
+
+            }
+
         }
 
     }

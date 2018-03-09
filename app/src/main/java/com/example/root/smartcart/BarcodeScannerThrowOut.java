@@ -27,7 +27,7 @@ public class BarcodeScannerThrowOut extends AppCompatActivity implements ZXingSc
     private static final int REQUEST_CAMERA = 1;
     private ZXingScannerView scannerView;
     private static int camId = CAMERA_FACING_BACK;
-    public static int measure1,measure2;
+    public static int MuffQty,ChocoQty;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,14 +49,14 @@ public class BarcodeScannerThrowOut extends AppCompatActivity implements ZXingSc
             }
         }
 
-        try{
+        /*try{
             Bundle bundle= getIntent().getExtras();
-            this.measure1 = bundle.getInt("measure1");
-            this.measure2 = bundle.getInt("measure2");
+            this.MuffQty = bundle.getInt("MuffQty");
+            this.ChocoQty = bundle.getInt("ChocoQty");
         }
         catch(Exception e){
             Log.e("Error is:",e.getMessage());
-        }
+        }*/
 
     }
 
@@ -142,56 +142,51 @@ public class BarcodeScannerThrowOut extends AppCompatActivity implements ZXingSc
         res=result.getText().toString();
         src1="123456";
         src2="654321";
-
+        Bundle ValuesFromThrowIn= getIntent().getExtras();
+        this.MuffQty = ValuesFromThrowIn.getInt("MuffQty");
+        this.ChocoQty = ValuesFromThrowIn.getInt("ChocoQty");
 
 
         if(src1.equals(res)) {
 
 
-            if(measure1==0){
+
+            if(MuffQty==0){
                 Toast.makeText(this, "There are no items in your cart...", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(BarcodeScannerThrowOut.this,Shopping.class);
-                startActivity(intent);
+                Intent GO_TO_SHOPPING = new Intent();
+                setResult(RESULT_OK,GO_TO_SHOPPING);
+                finish();
             }
             else {
-                measure1 -= 1;
+
+                Shopping.MuffQty -= 1;
                 Toast.makeText(this, "Removed item", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(BarcodeScannerThrowOut.this, Shopping.class);
-                Bundle bundle2 = new Bundle();
-                bundle2.putString("name", "Muffins");
-                bundle2.putString("price", "45");
-                bundle2.putInt("qty", measure1);
-                bundle2.putString("offers", " ");
-                bundle2.putInt("key",1);
-                //bundle.putInt("measure1",measure1);
-                intent.putExtras(bundle2);
-                startActivity(intent);
+                Intent GO_TO_SHOPPING = new Intent();
+                GO_TO_SHOPPING.putExtra("MuffQty",MuffQty);
+                GO_TO_SHOPPING.putExtra("key",1);
+                setResult(RESULT_OK,GO_TO_SHOPPING);
+                finish();
 
             }
 
 
         }
         else if(src2.equals(res)){
-            /*Bundle bundle= getIntent().getExtras();
-            measure2 =bundle.getInt("measure") ;*/
-            if(measure2<=0) {
+            if(ChocoQty==0){
                 Toast.makeText(this, "There are no items in your cart...", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(BarcodeScannerThrowOut.this,Shopping.class);
-                startActivity(intent);
-
+                Intent GO_TO_SHOPPING = new Intent();
+                setResult(RESULT_OK,GO_TO_SHOPPING);
+                finish();
             }
             else {
-                measure2 -= 1;
+                Shopping.ChocoQty -= 1;
                 Toast.makeText(this, "Removed item", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(BarcodeScannerThrowOut.this, Shopping.class);
-                Bundle bundle2 = new Bundle();
-                bundle2.putString("name", "Chocolate");
-                bundle2.putString("price", "20");
-                bundle2.putInt("qty", measure2);
-                bundle2.putInt("key",2);
-                bundle2.putString("offers", "null");
-                intent.putExtras(bundle2);
-                startActivity(intent);
+                Intent GO_TO_SHOPPING = new Intent();
+                GO_TO_SHOPPING.putExtra("ChocoQty",ChocoQty);
+                GO_TO_SHOPPING.putExtra("key",2);
+                setResult(RESULT_OK,GO_TO_SHOPPING);
+                finish();
+
             }
 
         }

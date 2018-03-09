@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 public class Bill extends AppCompatActivity {
 
     Button checkout;
@@ -33,17 +35,16 @@ public class Bill extends AppCompatActivity {
             int qty2= bundle.getInt("quantity2");
             String prr2= bundle.getString("price2");
             String prr= bundle.getString("price");
-            quantity.setText(Integer.toString(qty));
-            price.setText(prr);
-            quantity2.setText(Integer.toString(qty2));
-            price2.setText(prr2);
-            this.SQty=qty;
+            quantity.setText(Integer.toString(Shopping.MuffQty));
+            quantity2.setText(Integer.toString(Shopping.ChocoQty));
+            price2.setText("20");
+            /*this.SQty=qty;
             int SPrr= Integer.parseInt(prr.toString());
             this.SQty2=qty2;
-            int SPrr2= Integer.parseInt(prr2);
-            int tota= SQty2*SPrr2+SQty*SPrr;
-            total.setText(Integer.toString(tota));
-//            price.setText(Long.toString(tota));
+            int SPrr2= Integer.parseInt(prr2);*/
+            int Total= Shopping.ChocoQty*20+Shopping.MuffQty*45;
+            price.setText("45");
+            total.setText(Integer.toString(Total));
         }
         catch (Exception e){
             Log.e("Error is: ",e.getMessage());
