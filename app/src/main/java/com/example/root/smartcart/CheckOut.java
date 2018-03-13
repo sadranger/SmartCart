@@ -1,6 +1,9 @@
 package com.example.root.smartcart;
 
 import android.bluetooth.BluetoothAdapter;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -27,12 +30,6 @@ public class CheckOut extends AppCompatActivity {
         Qty2 = (TextView) findViewById(R.id.qty2);
 
 
-        Bundle checking = getIntent().getExtras();
-
-        int qty1 = checking.getInt("measure1");
-        int qty2 = checking.getInt("measure2");
-
-
         Qty1.setText(Integer.toString(Shopping.MuffQty));
         Qty2.setText(Integer.toString(Shopping.ChocoQty));
         bDisable.setOnClickListener(new View.OnClickListener() {
@@ -48,6 +45,22 @@ public class CheckOut extends AppCompatActivity {
             }
         });
 
+        takeout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(CheckOut.this);
+                builder.setTitle("Thank you for choosing Smart Cart!");
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent GO_TO_SCAN= new Intent (getApplicationContext(),ScanTrolley.class);
+                        startActivity(GO_TO_SCAN);
+                    }
+                });
+                AlertDialog alert= builder.create();
+                alert.show();
+            }
+        });
 
     }
 }

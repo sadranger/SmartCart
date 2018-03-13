@@ -21,16 +21,18 @@ public class TrolleyAssign extends AppCompatActivity {
         scan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent scanTrolley=new Intent(TrolleyAssign.this,QrScanner.class);
-                startActivity(scanTrolley);
+                Intent GO_TO_SCANNER=new Intent(TrolleyAssign.this,QrScanner.class);
+                startActivityForResult(GO_TO_SCANNER,1);
             }
         });
         shop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(TrolleyAssign.this,Shopping.class);
-                startActivity(intent);
+                Intent GO_TO_SHOPPING = new Intent(TrolleyAssign.this,Shopping.class);
+                startActivity(GO_TO_SHOPPING);
             }
         });
     }
+
+
 }

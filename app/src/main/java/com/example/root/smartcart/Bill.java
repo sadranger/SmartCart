@@ -13,9 +13,6 @@ import org.w3c.dom.Text;
 public class Bill extends AppCompatActivity {
 
     Button checkout;
-    public int SQty,SQty2;
-
-
     TextView quantity,price,quantity2,price2,total;
 
     @Override
@@ -30,20 +27,11 @@ public class Bill extends AppCompatActivity {
 
 
         try{
-            Bundle bundle = getIntent().getExtras();
-            int qty= bundle.getInt("quantity");
-            int qty2= bundle.getInt("quantity2");
-            String prr2= bundle.getString("price2");
-            String prr= bundle.getString("price");
             quantity.setText(Integer.toString(Shopping.MuffQty));
             quantity2.setText(Integer.toString(Shopping.ChocoQty));
             price2.setText("20");
-            /*this.SQty=qty;
-            int SPrr= Integer.parseInt(prr.toString());
-            this.SQty2=qty2;
-            int SPrr2= Integer.parseInt(prr2);*/
-            int Total= Shopping.ChocoQty*20+Shopping.MuffQty*45;
             price.setText("45");
+            int Total= Shopping.ChocoQty*20+Shopping.MuffQty*45;
             total.setText(Integer.toString(Total));
         }
         catch (Exception e){
@@ -57,10 +45,6 @@ public class Bill extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent checkOut = new Intent(Bill.this,CheckOut.class);
-                Bundle checking = new Bundle();
-                checking.putInt("measure1",SQty);
-                checking.putInt("measure",SQty2);
-                checkOut.putExtras(checking);
                 startActivity(checkOut);
             }
         });

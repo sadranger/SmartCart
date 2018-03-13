@@ -26,7 +26,6 @@ public class BarcodeScanner extends AppCompatActivity implements ZXingScannerVie
     private static final int REQUEST_CAMERA = 1;
     private ZXingScannerView scannerView;
     private static int camId = CAMERA_FACING_BACK;
-    public static int MuffQty=0,ChocoQty=0;
     public final int MuffKey=1,ChocoKey=2;
 
     @Override
@@ -133,11 +132,8 @@ public class BarcodeScanner extends AppCompatActivity implements ZXingScannerVie
         src2="654321";
 
         if(src1.equals(res)) {
-            Shopping.MuffQty = Shopping.MuffQty+1;
-            MuffQty+=1;
-
+            Shopping.MuffQty+=1;
             Intent GO_TO_SHOPPING = new Intent();
-            GO_TO_SHOPPING.putExtra("MuffQty",MuffQty);
             GO_TO_SHOPPING.putExtra("key",MuffKey);
             setResult(RESULT_OK,GO_TO_SHOPPING);
             finish();
@@ -145,11 +141,8 @@ public class BarcodeScanner extends AppCompatActivity implements ZXingScannerVie
 
         }
         else if(src2.equals(res)){
-            Shopping.ChocoQty=Shopping.ChocoQty+1;
-            ChocoQty+=1;
-
+            Shopping.ChocoQty+=1;
             Intent GO_TO_SHOPPING = new Intent();
-            GO_TO_SHOPPING.putExtra("ChocoQty",ChocoQty);
             GO_TO_SHOPPING.putExtra("key",ChocoKey);
             setResult(RESULT_OK,GO_TO_SHOPPING);
             finish();
@@ -160,6 +153,7 @@ public class BarcodeScanner extends AppCompatActivity implements ZXingScannerVie
             Toast.makeText(this, "Item out of stock. Inconvenience caused is deeply regretted!!", Toast.LENGTH_SHORT).show();
             Toast.makeText(this, "Failed to get details!!", Toast.LENGTH_SHORT).show();
             setResult(RESULT_OK,GO_TO_SHOPPING);
+            finish();
         }
 
 

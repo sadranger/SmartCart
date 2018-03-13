@@ -156,7 +156,6 @@ public class Shopping extends AppCompatActivity {
             if(resultcode==RESULT_OK){
                 int PassedKeyForThrowIn =data.getIntExtra("key",0);
                 if(PassedKeyForThrowIn==1){
-                    //MuffQty=data.getIntExtra("MuffQty",0);
                     if(MuffQty>0){
                         nameT.setText("Muffins");
                         priceT.setText("45");
@@ -166,7 +165,6 @@ public class Shopping extends AppCompatActivity {
 
                 }
                 if(PassedKeyForThrowIn==2){
-                    //ChocoQty = data.getIntExtra("ChocoQty",0);
                     if(ChocoQty>0){
                         nameT.setText("Chocolates");
                         priceT.setText("20");
@@ -176,7 +174,7 @@ public class Shopping extends AppCompatActivity {
 
                 }
                 if(PassedKeyForThrowIn==0){
-                    Toast.makeText(this, "Failed to get details..", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Failed to fetch details!!!", Toast.LENGTH_SHORT).show();
                 }
 
 
@@ -188,20 +186,39 @@ public class Shopping extends AppCompatActivity {
             if(resultcode==RESULT_OK){
                 int PassedKeyForThrowOut=data.getIntExtra("key",0);
                 if(PassedKeyForThrowOut==1){
-                    //MuffQty=data.getIntExtra("MuffQty",0);
-                    nameT.setText("Muffins");
-                    priceT.setText("45");
-                    offersT.setText(" " );
-                    qtyT.setText(Integer.toString(MuffQty));
+                    if(MuffQty<=0){
+                        nameT.setText("0");
+                        priceT.setText("0");
+                        offersT.setText(" " );
+                        qtyT.setText("0");
+
+                    }
+                    else {
+                        nameT.setText("Muffins");
+                        offersT.setText(" ");
+                        priceT.setText("45");
+                        qtyT.setText(Integer.toString(MuffQty));
+                    }
 
                 }
                 if(PassedKeyForThrowOut==2){
-                    //ChocoQty=data.getIntExtra("ChocoQty",0);
-                    nameT.setText("Chocolates");
-                    priceT.setText("20");
-                    offersT.setText(" " );
-                    qtyT.setText(Integer.toString(ChocoQty));
+                    if(ChocoQty<=0){
+                        nameT.setText("0");
+                        priceT.setText("0");
+                        offersT.setText(" ");
+                        qtyT.setText("0");
 
+                    }
+                    else {
+                        nameT.setText("Chocolates");
+                        priceT.setText("20");
+                        offersT.setText(" ");
+                        qtyT.setText(Integer.toString(ChocoQty));
+                    }
+
+                }
+                if(PassedKeyForThrowOut==0){
+                    Toast.makeText(this, "Failed to fetch details!!!", Toast.LENGTH_SHORT).show();
                 }
 
 

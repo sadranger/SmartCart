@@ -10,6 +10,7 @@ import android.widget.Button;
 public class ScanTrolley extends AppCompatActivity {
 
     Button scan;
+    public final int REQ_FOR_SCANNER=1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,15 +22,27 @@ public class ScanTrolley extends AppCompatActivity {
         scan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(ScanTrolley.this,QrScanner.class);
+                Intent GO_TO_SCANNER=new Intent(ScanTrolley.this,QrScanner.class);
                 try{
-                    startActivity(intent);
+                    startActivityForResult(GO_TO_SCANNER,REQ_FOR_SCANNER);
                 }
                 catch(Exception e){
                     Log.e("Error is ", e.getMessage());
                 }
             }
         });
+    }
+
+    public void onActivityResult(int requestcode,int resultcode,Intent data){
+
+        if(requestcode==1){
+            if(resultcode==RESULT_OK){
+                Intent GO_TO_ASSIGN = new Intent(ScanTrolley.this,TrolleyAssign.class);
+                startActivity(GO_TO_ASSIGN);
+            }
+        }
+
+
     }
 
 

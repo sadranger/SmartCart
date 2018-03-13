@@ -130,41 +130,19 @@ public class QrScanner extends AppCompatActivity implements ZXingScannerView.Res
         src="Trolley";
 
         if(src.equals(res)) {
-
             Toast.makeText(this, "You have assigned a Trolley. Please proceed for shopping!!", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(QrScanner.this, TrolleyAssign.class);
-            startActivity(intent);
-
+            Intent GO_TO_TROLLEY = new Intent(QrScanner.this,ScanTrolley.class);
+            setResult(RESULT_OK,GO_TO_TROLLEY);
+            finish();
            }
         else{
 
             Toast.makeText(this, "You have scanned wrong Qr Code.Please scan correct one!!", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(QrScanner.this,ScanTrolley.class);
-            startActivity(intent);
+            Intent GO_TO_TROLLEY = new Intent(QrScanner.this,ScanTrolley.class);
+            setResult(RESULT_CANCELED,GO_TO_TROLLEY);
+            finish();
 
         }
 
-        /*final String myResult = result.getText();
-        Log.d("QRCodeScanner", result.getText());
-        Log.d("QRCodeScanner", result.getBarcodeFormat().toString());
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Scan Result");
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                scannerView.resumeCameraPreview(QrScanner.this);
-            }
-        });
-        builder.setNeutralButton("Visit", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(myResult));
-                startActivity(browserIntent);
-            }
-        });
-        builder.setMessage(result.getText());
-        AlertDialog alert1 = builder.create();
-        alert1.show();*/
     }
 }

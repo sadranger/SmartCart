@@ -27,7 +27,7 @@ public class BarcodeScannerThrowOut extends AppCompatActivity implements ZXingSc
     private static final int REQUEST_CAMERA = 1;
     private ZXingScannerView scannerView;
     private static int camId = CAMERA_FACING_BACK;
-    public static int MuffQty,ChocoQty;
+    public final int MuffKey=1,ChocoKey=2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -142,28 +142,19 @@ public class BarcodeScannerThrowOut extends AppCompatActivity implements ZXingSc
         res=result.getText().toString();
         src1="123456";
         src2="654321";
-        Bundle ValuesFromThrowIn= getIntent().getExtras();
-        this.MuffQty = ValuesFromThrowIn.getInt("MuffQty");
-        this.ChocoQty = ValuesFromThrowIn.getInt("ChocoQty");
-
 
         if(src1.equals(res)) {
-
-
-
-            if(MuffQty==0){
-                Toast.makeText(this, "There are no items in your cart...", Toast.LENGTH_SHORT).show();
+            if(Shopping.MuffQty<=0){
+                Toast.makeText(this, "There are no items in your cart!!!", Toast.LENGTH_SHORT).show();
                 Intent GO_TO_SHOPPING = new Intent();
                 setResult(RESULT_OK,GO_TO_SHOPPING);
                 finish();
             }
             else {
-
                 Shopping.MuffQty -= 1;
                 Toast.makeText(this, "Removed item", Toast.LENGTH_SHORT).show();
                 Intent GO_TO_SHOPPING = new Intent();
-                GO_TO_SHOPPING.putExtra("MuffQty",MuffQty);
-                GO_TO_SHOPPING.putExtra("key",1);
+                GO_TO_SHOPPING.putExtra("key",MuffKey);
                 setResult(RESULT_OK,GO_TO_SHOPPING);
                 finish();
 
@@ -172,7 +163,7 @@ public class BarcodeScannerThrowOut extends AppCompatActivity implements ZXingSc
 
         }
         else if(src2.equals(res)){
-            if(ChocoQty==0){
+            if(Shopping.ChocoQty<=0){
                 Toast.makeText(this, "There are no items in your cart...", Toast.LENGTH_SHORT).show();
                 Intent GO_TO_SHOPPING = new Intent();
                 setResult(RESULT_OK,GO_TO_SHOPPING);
@@ -182,8 +173,7 @@ public class BarcodeScannerThrowOut extends AppCompatActivity implements ZXingSc
                 Shopping.ChocoQty -= 1;
                 Toast.makeText(this, "Removed item", Toast.LENGTH_SHORT).show();
                 Intent GO_TO_SHOPPING = new Intent();
-                GO_TO_SHOPPING.putExtra("ChocoQty",ChocoQty);
-                GO_TO_SHOPPING.putExtra("key",2);
+                GO_TO_SHOPPING.putExtra("key",ChocoKey);
                 setResult(RESULT_OK,GO_TO_SHOPPING);
                 finish();
 
@@ -191,10 +181,11 @@ public class BarcodeScannerThrowOut extends AppCompatActivity implements ZXingSc
 
         }
         else{
-            Intent intent = new Intent(BarcodeScannerThrowOut.this,Shopping.class);
-            startActivity(intent);
+            Intent GO_TO_SHOPPING = new Intent(BarcodeScannerThrowOut.this,Shopping.class);
+            startActivity(GO_TO_SHOPPING);
             Toast.makeText(this, "Item out of stock. Inconvenience caused is deeply regretted!!", Toast.LENGTH_SHORT).show();
             Toast.makeText(this, "Failed to get details!!", Toast.LENGTH_SHORT).show();
+            finish();
         }
 
 
